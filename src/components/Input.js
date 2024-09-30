@@ -19,7 +19,7 @@ export const IconNames = {
   PASSWORD: 'lock',
 };
 
-const Input = ({ title, placeholder, value, iconName, ...props }) => {
+const Input = ({ title, placeholder, value, iconName, ...props }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
