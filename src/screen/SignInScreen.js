@@ -1,28 +1,36 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View, Keyboard, Alert } from 'react-native';
 import Input, {
   KeyboardTypes,
   ReturnKeyTypes,
   IconNames,
-} from '../components/Input';
-import { useState, useRef } from 'react';
+} from 'components/input';
+import { useState, useRef, useEffect } from 'react';
+import Button from '../components/Button';
 
 const SignInScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const passwordRef = useRef(null);
+  const { disabled, setDisabled } = useState(true);
+
+  const onSubmit = () => {
+    Keyboard.dismiss(); // 자동으로 키보드가 내려가는 기능
+    console.log(email, password);
+  };
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/test.png')} style={styles.Image} />
+      <Image source={require('../../assets/main.png')} style={styles.Image} />
 
       <Input
         title={'이메일'}
-        placeholder="test@email.com"
+        placeholder="test@test.com"
         keyboardType={KeyboardTypes.EMAIL}
         returnKeyType={ReturnKeyTypes.NEXT}
         value={email}
         onChangeText={(email) => setEmail(email.trim())}
         IconName={IconNames.EMAIL}
+        onSubmitEditing={onSubmit}
       />
       <Input
         ref={passwordRef}
@@ -33,6 +41,9 @@ const SignInScreen = () => {
         onChangeText={(password) => setPassword(password.trim())}
         IconName={IconNames.PASSWORD}
       />
+      <View style={styles.buttonContainer}>
+        <Button title="로그인" onPress={onSubmit} disabled={disabled} />
+      </View>
     </View>
   );
 };
