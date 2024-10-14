@@ -1,8 +1,8 @@
-import { ImageBackground, Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
-import { PRIMARY, WHITE } from '../colors';
+import { PRIMARY, WHITE, GRAY } from '../colors';
 
-const Button = ({ title, onPress, disabled }) => {
+const Button = ({ title, onPress, disabled, isLoading }) => {
   return (
     <Pressable
       onPress={onPress}
@@ -11,9 +11,13 @@ const Button = ({ title, onPress, disabled }) => {
         pressed && { backgroundColor: PRIMARY.DARK },
         disabled && { backgroundColor: PRIMARY.LIGHT, opacity: 0.6 },
       ]}
-      disabled={disabled} // true로 적용되면 버튼 클릭해도 함수 호출 XXX
+      disabled={disabled}
     >
-      <Text style={styles.title}>{title}</Text>
+      {isLoading ? (
+        <ActivityIndicator size="small" color={GRAY.DEFAULT} />
+      ) : (
+        <Text style={styles.title}>{title}</Text>
+      )}
     </Pressable>
   );
 };
@@ -22,6 +26,7 @@ Button.propTypes = {
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
@@ -30,13 +35,13 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: PRIMARY.DEFAUIT,
+    backgroundColor: PRIMARY.DEFAULT,
   },
-
   title: {
     color: WHITE,
     fontSize: 16,
     fontWeight: '700',
+    lineHeight: 20,
   },
 });
 
