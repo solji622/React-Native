@@ -9,6 +9,7 @@ import Button from '../components/Buttons';
 import { signIn } from '../api/auth';
 import PropTypes from 'prop-types';
 import UserContext from '../contexts/UserContext';
+import { useUserContext } from '../contexts/UserContext';
 
 const SignInScreen = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ const SignInScreen = () => {
   const passwordRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const { serUser } = useContext(UserContext);
+  const { setUser } = useUserContext();
 
   useEffect(() => {
     setDisabled(!email || !password);
