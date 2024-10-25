@@ -1,5 +1,5 @@
 const USER_EMAIL = 'my@email.com';
-const USER_PASSWORD = '1234';
+const USER_PASSWORD = '1111';
 
 export const signIn = (email, password) => {
   return new Promise((resolve, reject) => {
